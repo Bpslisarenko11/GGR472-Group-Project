@@ -31,4 +31,21 @@ map.on('load',() => {
         data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Health-Services.geojson", // Link to GeoJSON link in GitHub
     
     });
+
+    map.addLayer({
+        'id': 'hospitals1',
+        'type': 'circle',
+        'source': 'hospitals',
+        'paint': {
+            'circle-radius': 6,
+            'circle-color': '#000000'
+        }
+
+    });
+
+    map.addSource("hospitals", {
+        type: "geojson",
+        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Health-Services.geojson", // Link to GeoJSON link in GitHub
+    
+    });
 })
