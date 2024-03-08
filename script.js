@@ -4,13 +4,31 @@ const map = new mapboxgl.Map({
     container: "my-map", //ID for my-map container
     center: [-79.37390704282365, 43.64777081498133], //starting position coordinates in longitude and latitude
     zoom: 11, //starting zoom for the map
-    maxBounds: [
-        [-79.6, 43.4], // Maximum map zoom out coordinates Southwest
-        [-79.2, 43.8]  // Maximum map zoom out coordinates Northeast
-    ],
 
 });
 
 map.on('load',() => {
     
+    map.addSource("housing", {
+        type: "geojson",
+        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Affordable-housing.geojson", // Link to GeoJSON link in GitHub
+    
+    });
+
+    map.addLayer({
+        'id': 'houses',
+        'type': 'circle',
+        'source': 'housing',
+        'paint': {
+            'circle-radius': 6,
+            'circle-color': '#600094'
+        }
+
+    });
+
+    map.addSource("hospitals", {
+        type: "geojson",
+        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Affordable-housing.geojson", // Link to GeoJSON link in GitHub
+    
+    });
 })
