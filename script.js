@@ -28,7 +28,7 @@ map.on('load',() => {
 
     map.addSource("hospitals", {
         type: "geojson",
-        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Affordable-housing.geojson", // Link to GeoJSON link in GitHub
+        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Health-Services.geojson", // Link to GeoJSON link in GitHub
     
     });
 })
