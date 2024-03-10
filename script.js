@@ -43,9 +43,37 @@ map.on('load',() => {
 
     });
 
-    map.addSource("hospitals", {
+    map.addSource("schools", {
         type: "geojson",
-        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Health-Services.geojson", // Link to GeoJSON link in GitHub
+        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/School-locations.geojson", // Link to GeoJSON link in GitHub
     
+    });
+
+    map.addLayer({
+        'id': 'schools1',
+        'type': 'circle',
+        'source': 'schools',
+        'paint': {
+            'circle-radius': 6,
+            'circle-color': '#ff0000'
+        }
+
+    });
+
+    map.addSource("subways1", {
+        type: "geojson",
+        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/School-locations.geojson", // Link to GeoJSON link in GitHub
+    
+    });
+
+    map.addLayer({
+        'id': 'subwaystops',
+        'type': 'circle',
+        'source': 'subways1',
+        'paint': {
+            'circle-radius': 6,
+            'circle-color': '#00fadd'
+        }
+
     });
 })
