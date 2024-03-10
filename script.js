@@ -55,14 +55,14 @@ map.on('load',() => {
         'source': 'schools',
         'paint': {
             'circle-radius': 6,
-            'circle-color': '#ff0000'
+            'circle-color': '#00fadd'
         }
 
     });
 
     map.addSource("subways1", {
         type: "geojson",
-        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/School-locations.geojson", // Link to GeoJSON link in GitHub
+        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Subways.geojson", // Link to GeoJSON link in GitHub
     
     });
 
@@ -72,7 +72,7 @@ map.on('load',() => {
         'source': 'subways1',
         'paint': {
             'circle-radius': 6,
-            'circle-color': '#00fadd'
+            'circle-color': '#ff0000'
         }
 
     });
