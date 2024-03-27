@@ -1,19 +1,33 @@
+body {
+    background-color: whitesmoke
+}
+
 .map-container {
     position: absolute;
-    top: 0;
+    top: 60px;
     bottom: 0;
-    width: 100%;
+    left: 50px;
+    width: 75%;
+    height: 85%;
 }
 
 .map-features-container {
     position: absolute;
     font: 16px/22px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    background: whitesmoke;
+    background: white;
     width: 250px;
-    top: 0;
+    top: 56px;
     right: 5px;
     margin: 5px 0 0 5px; /* spacing of all margin sides of the container */
     padding: 10px; /*Add additional spacing around the container*/
+}
+
+#nameset {
+    position: relative;
+    width: 100px;
+    top: 0;
+    left: 18px;
+    margin: 5px 0 5px;
 }
 
 /* positioning of the reset-button within the park-zoom-filter*/
@@ -24,6 +38,7 @@
     left: 50px;
     margin: 5px 0 5px;
 }
+  
 
 #school-class  {
     position: relative;
@@ -33,54 +48,7 @@
     margin: 5px 0 5px;
 }
 
-.dropdown-check-list {
-    display: inline-block;
-}
-  
-.dropdown-check-list .anchor {
-    position: relative;
-    cursor: pointer;
-    display: inline-block;
-    padding: 5px 50px 5px 10px;
-    border: 1px solid #ccc;
-}
-  
-.dropdown-check-list .anchor:after {
-    position: absolute;
-    content: "";
-    border-left: 2px solid black;
-    border-top: 2px solid black;
-    padding: 5px;
-    right: 10px;
-    top: 20%;
-    -moz-transform: rotate(-135deg);
-    -ms-transform: rotate(-135deg);
-    -o-transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-    transform: rotate(-135deg);
-}
-  
-.dropdown-check-list .anchor:active:after {
-    right: 8px;
-    top: 21%;
-}
-  
-.dropdown-check-list ul.items {
-    padding: 2px;
-    display: none;
-    margin: 0;
-    border: 1px solid #ccc;
-    border-top: none;
-}
-  
-.dropdown-check-list ul.items li {
-    list-style: none;
-}
-  
-.dropdown-check-list.visible .anchor {
-    color: #0094ff;
-}
-  
-.dropdown-check-list.visible .items {
-    display: block;
+.top-bar{
+    width: 100%;
+    background: lightblue
 }

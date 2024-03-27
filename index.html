@@ -16,6 +16,38 @@
 
 </head>
 <body>
+
+<section class="top-bar">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">GGR472</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!--This adds different items in the navigation bar, which link to different html pages-->
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Map</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="data.html">Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="features.html">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="info.html">Info</a>
+            </li>
+          
+          
+          </ul>
+        
+        </div>
+      </div>
+    </nav>
+</section>  
+
     <div id='my-map' class='map-container'></div>
 
     <div class="map-features-container">
@@ -26,49 +58,31 @@
         </div>
 
         <div class="hospital-filter">
-            <input class="hospital-checkbox" type="checkbox" value="" id="hospitals-id" checked>
+            <input class="hospital-checkbox" type="checkbox" value="" id="hospitals-id" unchecked>
             Hospitals
         </div>
 
-        <div class="school-filter-1">
-            <input class="school-checkbox" type="checkbox" value="" id="schools-id-PR" checked>
-            Private Schools
-        </div>
-
-        <div class="school-filter-2">
-            <input class="school-checkbox" type="checkbox" value="" id="schools-id-EP" checked>
-            English Public Schools
-        </div>
-
-        <div class="school-filter-3">
-            <input class="school-checkbox" type="checkbox" value="" id="schools-id-ES" checked>
-            English Catholic Schools
-        </div>
-
-        <div class="school-filter-4">
-            <input class="school-checkbox" type="checkbox" value="" id="schools-id-FP" checked>
-            French Public Schools
-        </div>
-
-        <div class="school-filter-5">
-            <input class="school-checkbox" type="checkbox" value="" id="schools-id-FS" checked>
-            French Catholic Schools
-        </div>
-
-        <div class="school-filter-6">
-            <input class="school-checkbox" type="checkbox" value="" id="schools-id-U" checked>
-            Universities
-        </div>
-
-        <div class="school-filter-7">
-            <input class="school-checkbox" type="checkbox" value="" id="schools-id-C" checked>
-            Colleges
-        </div>
-
         <div class="subway-filter">
-            <input class="subway-checkbox" type="checkbox" value="" id="subways-id" checked>
+            <input class="subway-checkbox" type="checkbox" value="" id="subways-id" unchecked>
             Subways
         </div>
+
+        <div class ="School-checkbox-dropdown", id="nameset"> 
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Schools
+          </a>
+          <ul class="dropdown-menu">
+            <li><input class="school-checkbox" type="checkbox" value="" id="schools-id-PR" unchecked>Private Schools</li>
+            <li><input class="school-checkbox" type="checkbox" value="" id="schools-id-EP" unchecked>English Public Schools</li>
+            <li> <input class="school-checkbox" type="checkbox" value="" id="schools-id-ES" unchecked>English Catholics Schools</li>
+            <li><input class="school-checkbox" type="checkbox" value="" id="schools-id-FP" unchecked>French Public Schools</li>
+            <li><input class="school-checkbox" type="checkbox" value="" id="schools-id-FS" unchecked>French Catholic Schools</li>
+            <li><input class="school-checkbox" type="checkbox" value="" id="schools-id-U" unchecked>Universities</li>
+            <li><input class="school-checkbox" type="checkbox" value="" id="schools-id-C" unchecked>Colleges</li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Select Schools by Type</a></li>
+          </ul>
+        </div>     
         <br>
 
         <form>
@@ -88,19 +102,6 @@
                 </select>
             </fieldset>
         </form>
-
-        <div id="list1" class="dropdown-check-list" tabindex="100">
-            <span class="anchor">Select Schools</span>
-            <ul class="items">
-              <li><input class="school-checkbox" type="checkbox" value="" id="schools-id-C" unchecked />schools </li>
-              <li><input type="checkbox" />Orange</li>
-              <li><input type="checkbox" />Grapes </li>
-              <li><input type="checkbox" />Berry </li>
-              <li><input type="checkbox" />Mango </li>
-              <li><input type="checkbox" />Banana </li>
-              <li><input type="checkbox" />Tomato</li>
-            </ul>
-        </div>
         
         <!-- small button for resetting map zoom-->
         <div type="button" class="btn btn-primary btn-sm" id="reset-button">reset zoom</div>
