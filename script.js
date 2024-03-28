@@ -38,26 +38,27 @@ map.on('load',() => {
     
     map.addSource("housing", {
         type: "geojson",
-        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Affordable-housing.geojson", // Link to GeoJSON link in GitHub
-    
+        data: 'https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Affordable-housing.geojson', // Link to GeoJSON link in GitHub
+        
     });
-
+    //Add the GeoJSON link source as a new layer
     map.addLayer({
-        'id': 'houses',
-        'type': 'circle',
-        'source': 'housing',
-        'paint': {
-            'circle-radius': 4,
-            'circle-color': '#600094',
-            "circle-opacity": [
+        "id": "houses",
+        "type": "circle",
+        "source": "housing",
+        "paint": {
+            "circle-color": "#600094",
+            "circle-opacity": 1.0,
+            "circle-radius": [
                 //insert case condition for changing the radius of the circles
                 "case",
                 ["boolean", ["feature-state", "hover"], false],
-                0.3, // change radius to 11 when hovering over circle
-                1 // set circle radius to 6 otherwise
+                11, // change radius to 11 when hovering over circle
+                4 // set circle radius to 6 otherwise
             ],
+            "circle-outline": "#002aff"
+    
         }
-
     });
 
     map.addSource("hospitals", {
@@ -71,7 +72,7 @@ map.on('load',() => {
         'type': 'circle',
         'source': 'hospitals',
         'paint': {
-            'circle-radius': 4,
+            "circle-radius": 4,
             'circle-color': '#000000'
         },
         "layout": {
@@ -212,21 +213,21 @@ map.on('load',() => {
 });
 
 
-let housinghove = null;
+let parksize = null;
 
 map.on('mousemove', 'houses', (e) => {
     if (e.features.length > 0) { //If there are features in array enter conditional
 
-        if (housinghove !== null) { //reset the size of the first "park-shapes" circle if hovering over multiple circles
+        if (parksize !== null) { //reset the size of the first "park-shapes" circle if hovering over multiple circles
             map.setFeatureState(
-                { source: 'housing', id: housinghove },
+                { source: 'housing', id: parksize },
                 { hover: false }
             );
         }
 
-        housinghove = e.features[0].id; //change the parksize variable to the feature Id
+        parksize = e.features[0].id; //change the parksize variable to the feature Id
         map.setFeatureState(
-            { source: 'housing', id: housinghove },
+            { source: 'housing', id: parksize },
             { hover: true } //When hovering over a feature, the circle size will change
         ); 
     
@@ -235,13 +236,13 @@ map.on('mousemove', 'houses', (e) => {
 
 
 map.on('mouseleave', 'houses', () => { //If the mouse hover isn't active over the "parks-shapes" then reset the parksize variable and circle size
-    if (housinghove !== null) {
+    if (parksize !== null) {
         map.setFeatureState(
-            { source: 'housing', id: housinghove },
+            { source: 'housing', id: parksize },
             { hover: false }
         );
     }
-    housinghove = null;
+    parksize = null;
 });
 
 
@@ -255,14 +256,24 @@ map.on('mouseleave', ['houses', "hospitals1", "subwaystops", "schools1", "school
 });
 
 map.on('click', 'houses', (e) => {
+    coordinates1= e.lngLat
+    console.log(coordinates1)
     new mapboxgl.Popup() //Create a popup when clicking the "parks-shapes" layer
     .setLngLat(e.lngLat) //Popup appears at the longitude and latitude of the click
         .setHTML("<b>Address: </b>" + e.features[0].properties.Address + "<br>" +
             "<b>Number of Units proposed:</b> " + e.features[0].properties.Most_recent_number_of_affordab + "<br>" +
             "<b>Number of Units built:</b> " + e.features[0].properties.Units_Built_Num + "<br>" + 
             "<b>Construction start date:</b> " + e.features[0].properties.Construction_Start_Date + "<br>" + 
-            "<b>Construction completion date:</b> " + e.features[0].properties.Actual_Construction_Completion) //Access "parks-shapes" data to add name and location data to popup
+            "<b>Construction completion date:</b> " + e.features[0].properties.Actual_Construction_Completion + "<br>" + "<br>" +  
+            '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button class="btn btn-primary btn-sm" id="zoom-in">Zoom to Feature') //Access "parks-shapes" data to add name and location data to popup
         .addTo(map) //Add the pop up to the map
+        document.getElementById('zoom-in').addEventListener('click', () => {
+            map.flyTo({
+                center: coordinates1,
+                zoom: 13,
+                essential: true
+            });
+        });
 });
 
 map.on('click', 'hospitals1', (e) => {
