@@ -3,6 +3,7 @@ mapboxgl.accessToken = "pk.eyJ1Ijoic3BibGlzYXJlbmtvMTIiLCJhIjoiY2xzMjlodmljMGthc
 const map = new mapboxgl.Map({
     container: "my-map", //ID for my-map container
     center: [-79.39390704282365, 43.70777081498133], //starting position coordinates in longitude and latitude
+    style: "mapbox://styles/spblisarenko12/cluiujkk2004d01p2djhvhsrg",
     zoom: 9.8, //starting zoom for the map
 
 });
@@ -33,10 +34,7 @@ fetch("https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information")
         cycle = response;
     })
 
-
-url1 = "https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information"
-
-map.on('load', async () => {
+map.on('load', () => {
     
 
     let bpoints;
@@ -83,13 +81,14 @@ map.on('load', async () => {
             ],
             "circle-opacity": 1.0,
             "circle-radius": [
-                //insert case condition for changing the radius of the circles
-                "case",
-                ["boolean", ["feature-state", "hover"], false],
-                11, // change radius to 11 when hovering over circle
-                4 // set circle radius to 6 otherwise
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
             ],
-            "circle-outline": "#002aff"
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
     
         }
     });
@@ -105,8 +104,16 @@ map.on('load', async () => {
         'type': 'circle',
         'source': 'hospitals',
         'paint': {
-            "circle-radius": 4,
-            'circle-color': '#000000'
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
+            ],
+            'circle-color': '#175ea1',
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
         },
         "layout": {
             "visibility": "none"
@@ -125,8 +132,16 @@ map.on('load', async () => {
         'type': 'circle',
         'source': 'schools_all',
         'paint': {
-            'circle-radius': 4,
-            'circle-color': '#098a00'
+            'circle-radius': [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
+            ],
+            'circle-color': '#098a00',
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
         },
         'filter': ['==', ['get', 'SCHOOL_TYPE'], "PR"],
         "layout": {
@@ -139,8 +154,16 @@ map.on('load', async () => {
         'type': 'circle',
         'source': 'schools_all',
         'paint': {
-            'circle-radius': 4,
-            'circle-color': '#098a00'
+            'circle-radius': [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
+            ],
+            'circle-color': '#098a00',
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
         },
         'filter': ['==', ['get', 'SCHOOL_TYPE'], 'EP'],
         "layout": {
@@ -154,8 +177,16 @@ map.on('load', async () => {
         'type': 'circle',
         'source': 'schools_all',
         'paint': {
-            'circle-radius': 4,
-            'circle-color': '#098a00'
+            'circle-radius': [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
+            ],
+            'circle-color': '#098a00',
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
         },
         'filter': ['==', ['get', 'SCHOOL_TYPE'], 'ES'],
         "layout": {
@@ -169,8 +200,16 @@ map.on('load', async () => {
         'type': 'circle',
         'source': 'schools_all',
         'paint': {
-            'circle-radius': 4,
-            'circle-color': '#098a00'
+            'circle-radius': [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
+            ],
+            'circle-color': '#098a00',
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
         },
         'filter': ['==', ['get', 'SCHOOL_TYPE'], 'FP'],
         "layout": {
@@ -184,8 +223,16 @@ map.on('load', async () => {
         'type': 'circle',
         'source': 'schools_all',
         'paint': {
-            'circle-radius': 4,
-            'circle-color': '#098a00'
+            'circle-radius': [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
+            ],
+            'circle-color': '#098a00',
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
         },
         'filter': ['==', ['get', 'SCHOOL_TYPE'], 'FS'],
         "layout": {
@@ -199,8 +246,16 @@ map.on('load', async () => {
         'type': 'circle',
         'source': 'schools_all',
         'paint': {
-            'circle-radius': 4,
-            'circle-color': '#098a00'
+            'circle-radius': [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
+            ],
+            'circle-color': '#098a00',
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
         },
         'filter': ['==', ['get', 'SCHOOL_TYPE'], 'U'],
         "layout": {
@@ -214,8 +269,16 @@ map.on('load', async () => {
         'type': 'circle',
         'source': 'schools_all',
         'paint': {
-            'circle-radius': 4,
-            'circle-color': '#098a00'
+            'circle-radius': [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
+            ],
+            'circle-color': '#098a00',
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
         },
         'filter': ['==', ['get', 'SCHOOL_TYPE'], 'C'],
         "layout": {
@@ -235,8 +298,16 @@ map.on('load', async () => {
         'type': 'circle',
         'source': 'subways1',
         'paint': {
-            'circle-radius': 4,
-            'circle-color': '#ff0000'
+            'circle-radius': [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
+            ],
+            'circle-color': '#ff0000',
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
         },
         "layout": {
             "visibility": "none"
