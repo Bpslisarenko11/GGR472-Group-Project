@@ -34,7 +34,34 @@ fetch("https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information")
     })
 
 
-map.on('load',() => {
+url1 = "https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information"
+
+map.on('load', async () => {
+    
+
+    let bpoints;
+    
+
+    bpoints = {
+        "type": "FeatureCollection",
+        "features": [bpoints]
+    }
+
+
+    map.addSource("stations", {
+        type: "geojson",
+        data: "cycle", // Link to GeoJSON link in GitHub
+        
+    });
+    //Add the GeoJSON link source as a new layer
+    map.addLayer({
+        "id": "stations",
+        "type": "circle",
+        "source": "stations",
+        "paint": {
+            "circle-color": "#000000"
+        }
+    });
     
     map.addSource("housing", {
         type: "geojson",
@@ -47,7 +74,13 @@ map.on('load',() => {
         "type": "circle",
         "source": "housing",
         "paint": {
-            "circle-color": "#600094",
+            "circle-color": [
+                "case",
+                ["boolean", ["==", ["get", "Actual_Construction_Completion"], ""], false], // Access the Area property of the Geojson
+                //Assign colours based on Area values of each feature in the Geojson
+                "#c994ff",
+                "#8000ff"
+            ],
             "circle-opacity": 1.0,
             "circle-radius": [
                 //insert case condition for changing the radius of the circles
@@ -390,73 +423,4 @@ document.getElementById('subways-id').addEventListener('change', (e) => {
          e.target.checked ? "visible" : "none",
         e.target.checked ? 'none' : 'visible'
     );
-});
-
-
-
-let schooltypes
-
-//Add new event listener
-document.getElementById("school-type-filter").addEventListener('click',(e) => { 
-    //Set the value of the areapoints variable  
-    schooltypes = document.getElementById('school-class').value;
-
-    //Create conditional if statements which based on the value of areapoints, detemrines the features of the geojson layer that get filtered or removed
-    if (schooltypes == 'PR') {
-        map.setFilter(
-            "schools1",
-            [ "==", ["get", "SCHOOL_TYPE"], "PR"]
-        );
-    }
-
-    if (schooltypes == 'EP') {
-        map.setFilter(
-            "schools1",
-            [ "==", ["get", "SCHOOL_TYPE"], "EP"]
-        );
-    }
-
-    if (schooltypes == 'ES') {
-        map.setFilter(
-            "schools1",
-            [ "==", ["get", "SCHOOL_TYPE"], "ES"]
-        );
-    }
-
-    if (schooltypes == 'FP') {
-        map.setFilter(
-            "schools1",
-            [ "==", ["get", "SCHOOL_TYPE"], "FP"]
-        );
-    }
-
-    if (schooltypes == 'FS') {
-        map.setFilter(
-            "schools1",
-            [ "==", ["get", "SCHOOL_TYPE"], "FS"]
-        );
-    }
-
-    if (schooltypes == 'U') {
-        map.setFilter(
-            "schools1",
-            [ "==", ["get", "SCHOOL_TYPE"], "U"]
-        );
-    }
-
-    if (schooltypes == 'C') {
-        map.setFilter(
-            "schools1",
-            [ "==", ["get", "SCHOOL_TYPE"], "C"]
-        );
-    }
-
-    if (schooltypes == 'All-schools') {
-        map.setFilter(
-            "schools1",
-            ["has", "SCHOOL_TYPE"]
-        );
-    }
-
-
 });
