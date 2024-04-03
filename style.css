@@ -4,11 +4,31 @@ body {
 
 .map-container {
     position: absolute;
-    top: 60px;
+    top: 62px;
     bottom: 0;
-    left: 50px;
-    width: 75%;
-    height: 85%;
+    left: 25px;
+    width: 76.5%;
+    height: 87%;
+}
+
+.legend {
+    position: absolute;
+    background-color: white;
+    border-radius: 3px;
+    bottom: 0px;
+    top: 300px;
+    margin-bottom: 35px;
+    font: 14px/22px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    padding: 25px;
+    right: 5px;
+}
+
+.legend div span {
+    display: inline-block;
+    border-radius: 75%; /*round the edges of the legend points to make them circles*/
+    height: 12px; /*height of legend circles*/
+    width: 12px; /* Width of legend circles*/
+    margin-right: 8px; /*spacing of the circles in the legend*/
 }
 
 .map-features-container {
@@ -35,7 +55,7 @@ body {
     position: relative;
     width: 100px;
     top: 0;
-    left: 50px;
+    left: 57px;
     margin: 5px 0 5px;
 }
   

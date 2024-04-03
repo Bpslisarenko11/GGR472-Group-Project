@@ -111,7 +111,7 @@ map.on('load', () => {
                 10, 4,
                 22, 12
             ],
-            'circle-color': '#175ea1',
+            'circle-color': '#990042',
             "circle-stroke-color": "#000000",
             "circle-stroke-width": 0.5
         },
@@ -139,7 +139,7 @@ map.on('load', () => {
                 10, 4,
                 22, 12
             ],
-            'circle-color': '#098a00',
+            'circle-color': '#00ccff',
             "circle-stroke-color": "#000000",
             "circle-stroke-width": 0.5
         },
@@ -161,7 +161,7 @@ map.on('load', () => {
                 10, 4,
                 22, 12
             ],
-            'circle-color': '#098a00',
+            'circle-color': '#00ccff',
             "circle-stroke-color": "#000000",
             "circle-stroke-width": 0.5
         },
@@ -184,7 +184,7 @@ map.on('load', () => {
                 10, 4,
                 22, 12
             ],
-            'circle-color': '#098a00',
+            'circle-color': '#00ccff',
             "circle-stroke-color": "#000000",
             "circle-stroke-width": 0.5
         },
@@ -207,7 +207,7 @@ map.on('load', () => {
                 10, 4,
                 22, 12
             ],
-            'circle-color': '#098a00',
+            'circle-color': '#00ccff',
             "circle-stroke-color": "#000000",
             "circle-stroke-width": 0.5
         },
@@ -230,7 +230,7 @@ map.on('load', () => {
                 10, 4,
                 22, 12
             ],
-            'circle-color': '#098a00',
+            'circle-color': '#00ccff',
             "circle-stroke-color": "#000000",
             "circle-stroke-width": 0.5
         },
@@ -253,7 +253,7 @@ map.on('load', () => {
                 10, 4,
                 22, 12
             ],
-            'circle-color': '#098a00',
+            'circle-color': '#00ccff',
             "circle-stroke-color": "#000000",
             "circle-stroke-width": 0.5
         },
@@ -276,7 +276,7 @@ map.on('load', () => {
                 10, 4,
                 22, 12
             ],
-            'circle-color': '#098a00',
+            'circle-color': '#00ccff',
             "circle-stroke-color": "#000000",
             "circle-stroke-width": 0.5
         },
@@ -314,39 +314,60 @@ map.on('load', () => {
         }
 
     });
-});
 
 
-let parksize = null;
-
-map.on('mousemove', 'houses', (e) => {
-    if (e.features.length > 0) { //If there are features in array enter conditional
-
-        if (parksize !== null) { //reset the size of the first "park-shapes" circle if hovering over multiple circles
-            map.setFeatureState(
-                { source: 'housing', id: parksize },
-                { hover: false }
-            );
-        }
-
-        parksize = e.features[0].id; //change the parksize variable to the feature Id
-        map.setFeatureState(
-            { source: 'housing', id: parksize },
-            { hover: true } //When hovering over a feature, the circle size will change
-        ); 
+    function fetchIsochroneData() {
+        // Define the URL for the Isochrone API request
+        const apiUrl = 'https://api.mapbox.com/isochrone/v1/mapbox/walking/';
     
-    }
-});
-
-
-map.on('mouseleave', 'houses', () => { //If the mouse hover isn't active over the "parks-shapes" then reset the parksize variable and circle size
-    if (parksize !== null) {
-        map.setFeatureState(
-            { source: 'housing', id: parksize },
-            { hover: false }
-        );
-    }
-    parksize = null;
+        // Define the coordinates for the center of the isochrone (use the same coordinates as your map center)
+        const centerCoords = [-79.39390704282365, 43.70777081498133];
+    
+        // Define the parameters for the Isochrone API request
+        const params = {
+          contours_minutes: [5, 10, 15], // Contour intervals in minutes
+          polygons: true, // Include polygons in the response
+          access_token: mapboxgl.accessToken // Access token for Mapbox API
+        };
+    
+        // Construct the URL with parameters
+        const url = `${apiUrl}${centerCoords.join(',')}.json?${new URLSearchParams(params)}`;
+    
+        // Make the request to the Isochrone API
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            // Add Isochrone data to the map as a GeoJSON source and layer
+            map.addSource('isochrone', {
+              type: 'geojson',
+              data: data
+            });
+    
+            // Add Isochrone layer to the map
+            map.addLayer({
+              id: 'isochrone-layer',
+              type: 'fill',
+              source: 'isochrone',
+              paint: {
+                'fill-color': {
+                  property: 'contour',
+                  stops: [
+                    [5, '#fca90e'], // Color for 5-minute contour
+                    [10, '#ff6f61'], // Color for 10-minute contour
+                    [15, '#a34d91'] // Color for 15-minute contour
+                  ]
+                },
+                'fill-opacity': 0.3 // Adjust opacity as needed
+              }
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching Isochrone data:', error);
+          });
+      }
+    
+      // Call the function to fetch Isochrone data when the map loads
+      fetchIsochroneData();
 });
 
 
