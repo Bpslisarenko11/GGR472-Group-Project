@@ -2,33 +2,37 @@ body {
     background-color: whitesmoke
 }
 
+/*positioning for the map*/
 .map-container {
     position: absolute;
     top: 62px;
     bottom: 0;
     left: 25px;
-    width: 76.5%;
-    height: 87%;
+    width: 76.5%; /*reduce the width of the map*/
+    height: 87%; /*reduce the height of the map*/
 }
 
+/*positioning of the legend*/
 .legend {
     position: absolute;
     background-color: white;
     border-radius: 3px;
     bottom: 0px;
-    top: 300px;
-    margin-bottom: 35px;
-    font: 14px/22px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    padding: 25px;
+    top: 280px;
+    margin-bottom: 13px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    padding: 15px;
+    padding-top: 8px;
+    padding-right: 33px;
     right: 5px;
 }
 
 .legend div span {
     display: inline-block;
-    border-radius: 75%; /*round the edges of the legend points to make them circles*/
-    height: 12px; /*height of legend circles*/
-    width: 12px; /* Width of legend circles*/
-    margin-right: 8px; /*spacing of the circles in the legend*/
+    border-radius: 75%; /*round the edges of the legend points to make them circular*/
+    height: 12px; /*height of circles in the legend*/
+    width: 12px; /* Width of circles in the legend*/
+    margin-right: 8px; /*spacing of the legend circles*/
 }
 
 .map-features-container {
@@ -38,10 +42,11 @@ body {
     width: 250px;
     top: 56px;
     right: 5px;
-    margin: 5px 0 0 5px; /* spacing of all margin sides of the container */
-    padding: 10px; /*Add additional spacing around the container*/
+    margin: 5px 0 0 5px; /* Add some spacing to the container sides */
+    padding: 10px; /*Add some additional spacing to the  map features container*/
 }
 
+/*position the schools dropdown in the map features container*/
 #nameset {
     position: relative;
     width: 100px;
@@ -50,7 +55,7 @@ body {
     margin: 5px 0 5px;
 }
 
-/* positioning of the reset-button within the park-zoom-filter*/
+/* position the reset zoom button in the map features container*/
 #reset-button  {
     position: relative;
     width: 100px;
@@ -59,15 +64,7 @@ body {
     margin: 5px 0 5px;
 }
   
-
-#school-class  {
-    position: relative;
-    width: 150px;
-    top: 50;
-    left: 50px;
-    margin: 5px 0 5px;
-}
-
+/*positioning and colour for the navbar*/
 .top-bar{
     width: 100%;
     background: lightblue

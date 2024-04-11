@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!--Add navbar to top of the webpage-->
     <section class="top-bar">
         <nav class="navbar navbar-expand-lg navbar-light">
           <div class="container-fluid">
@@ -17,17 +18,20 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!--This adds different items in the navigation bar, which link to different html pages-->
+                <!--Different clickable items in the navbar that link to the different HTML pages-->
                 <li class="nav-item">
+                  <!--link to the "index" HTML page-->
                   <a class="nav-link active" aria-current="page" href="index.html">Map</a>
                 </li>
                 <li class="nav-item">
+                  <!--link to the "data" HTML page-->
                   <a class="nav-link" href="data.html">Data</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#">Features</a>
                 </li>
                 <li class="nav-item">
+                  <!--link to the "info" HTML page-->
                   <a class="nav-link" href="info.html">Info</a>
                 </li>
               
@@ -38,7 +42,7 @@
           </div>
         </nav>
     </section>
-<!--Adds heading and paragraph-->
+<!--Adds heading and paragraph text-->
 <div class="container">
     <h1><br>Map Features</h1>
     <p><br><b>Map icons</b> - Every map icon represents a location, whether it be an affordable housing project, subway, hospital, or school. Clicking on any of these icons will show a pop-up contianing a variety of information about the location. For ease of use, all the affordable housing locations have a 'Zoom to Feature' button that zooms the map in closer to that location.
@@ -46,7 +50,8 @@
     <br><p><b>Reset zoom</b> - Clicking this button will restore the map back to its default zoom setting.
     <br><p><b>Pop-ups</b> - Clicking on any point of the Afordable Housing, Hospitals, Subways, or Schools layer will display a pop-up over that point on the map, that contains informtation about that specific feature.
     <br><p><b>Zoom to Affordable Housing point</b> - Contained within the pop-up of any affordable housing point is a "zoom to feature" button, that when clicked, will zoom onto that point
-    <br><p><b>Checkboxes</b> - Each data layer is selectable by a checkbox, which will display the layer only if it is checked. Also, the schools data layer checkboxes are contained in a dropdown, which allows for school layers to be selected by school type. 
+    <br><p><b>Checkboxes</b> - Each data layer is selectable by a checkbox, which will display the layer only if it is checked. Also, the schools data layer checkboxes are contained in a dropdown, which allows for school layers to be selected by school type.
+    <br><p><b>Walking Distance Isochrones</b> - Contained within the pop-up for each Affordable Housing point is a checkbox, which when selected, will turn on an isochrone around the point with three different colour gradients. The first colour represents estimated walking times between 0-10 minutes from that housing point, thesecond colour gradient represents 10-20 minute walking times, and the third colour gradient represents 20-30 minute estimated walking times.  
 </div>
 </body>
 </html>
