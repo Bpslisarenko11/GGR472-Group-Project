@@ -15,6 +15,7 @@ map.addControl(new mapboxgl.NavigationControl(), "top-left");
 map.addControl(new mapboxgl.FullscreenControl(), "top-left");
 
 
+
 // Add event listener that changes the zoom level and poistion when button is clicked
 document.getElementById('reset-button').addEventListener('click', () => {
     map.flyTo({
@@ -61,9 +62,37 @@ map.on('load', () => {
         }
     });
 
+    map.addSource("housing", {
+        type: "geojson",
+        data: 'https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Affordable-housing.geojson', // Link to GeoJSON link in GitHub
+        
+    });
+    //Add the GeoJSON link source as a new layer
+    map.addLayer({
+        "id": "houses",
+        "type": "circle",
+        "source": "housing",
+        "paint": {
+            "circle-color": [
+                "case",
+                ["boolean", ["==", ["get", "Actual_Construction_Completion"], ""], false], // Access the Area property of the Geojson
+                //Assign colours based on Area values of each feature in the Geojson
+                "#c994ff",
+                "#8000ff"
+            ],
+            "circle-opacity": 1.0,
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10, 4,
+                22, 12
+            ],
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 0.5
     
-    
-
+        }
+    });
 
     
     map.addSource("hospitals", {
@@ -288,126 +317,40 @@ map.on('load', () => {
 
     });
 
-    fetch('https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Affordable-housing.geojson')
-  .then(response => response.json())
-  .then(housingData => {
-    // Add housing data as a GeoJSON source
-    map.addSource('housing', {
-      type: 'geojson',
-      data: housingData
-    });
 
-    // Add housing data as a layer
-    map.addLayer({
-        "id": "houses",
-        "type": "circle",
-        "source": "housing",
-        "paint": {
-            "circle-color": [
-                "case",
-                ["boolean", ["==", ["get", "Actual_Construction_Completion"], ""], false], // Access the Area property of the Geojson
-                //Assign colours based on Area values of each feature in the Geojson
-                "#c994ff",
-                "#8000ff"
-            ],
-            "circle-opacity": 1.0,
-            "circle-radius": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                10, 4,
-                22, 12
-            ],
-            "circle-stroke-color": "#000000",
-            "circle-stroke-width": 0.5
-    
-        }
-    });
-
-    // Event listener for change on affordable housing checkbox
-    document.getElementById('affordable-housing-id').addEventListener('change', (e) => {
-      map.setLayoutProperty(
-        'houses',
-        'visibility',
-        e.target.checked ? 'visible' : 'none'
-      );
-    });
-
-    // Fetch isochrone data for each housing point and add to the map
-    housingData.features.forEach(point => {
-      const coordinates = point.geometry.coordinates;
-      fetchIsochroneData(coordinates);
-    });
-  })
-  .catch(error => {
-    console.error('Error fetching housing data:', error);
-  });
-
-
-// Fetch isochrone data for each housing point and add to the map
-// Function to fetch Isochrone data for a given point
-function fetchIsochroneData(coordinates) {
-  // Define the URL for the Isochrone API request
-  const apiUrl = 'https://api.mapbox.com/isochrone/v1/mapbox/walking/';
-
-  // Define the parameters for the Isochrone API request
-  const params = {
-    contours_minutes: [5, 10, 15], // Contour intervals in minutes
-    polygons: true, // Include polygons in the response
-    access_token: mapboxgl.accessToken // Access token for Mapbox API
-  };
-
-  // Construct the URL with parameters
-  const url = `${apiUrl}${coordinates[0]},${coordinates[1]}.json?${new URLSearchParams(params)}`;
-
-  // Make the request to the Isochrone API
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      // Add Isochrone data to the map as a GeoJSON source and layer
-      map.addSource(`isochrone-${coordinates.join('-')}`, {
-        type: 'geojson',
-        data: data
-      });
-
-      // Add Isochrone layer to the map
-      map.addLayer({
-        id: `isochrone-layer-${coordinates.join('-')}`,
-        type: 'fill',
-        source: `isochrone-${coordinates.join('-')}`,
-        paint: {
-          'fill-color': {
-            property: 'contour',
-            stops: [
-              [5, '#fca90e'], // Color for 5-minute contour
-              [10, '#ff6f61'], // Color for 10-minute contour
-              [15, '#a34d91'] // Color for 15-minute contour
-            ]
-          },
-          'fill-opacity': 0.2 // Adjust opacity as needed
-        }
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching Isochrone data:', error);
-    });
-}
 
 });
 
 
 map.on('mouseenter', ['houses', "hospitals1", "subwaystops", "schools1", "schools2", "schools3", "schools4", "schools5", "schools6", "schools7"], (e) => {
     map.getCanvas().style.cursor = 'pointer'; //When hovering over "parks-shapes layer" change the mouse icon to pointer
-    console.log(parklabel)
 });
 
 map.on('mouseleave', ['houses', "hospitals1", "subwaystops", "schools1", "schools2", "schools3", "schools4", "schools5", "schools6", "schools7"], (e) => {
     map.getCanvas().style.cursor = ''; //When pointer icon is no longer over "parks-shapes" layer reverse back to mouse cursor icon
 });
 
+
+
 map.on('click', 'houses', (e) => {
+
+    
     coordinates1= e.lngLat
     console.log(coordinates1)
+
+    coordinates9 = e.lngLat
+    console.log(coordinates9)
+
+    let coordinates10 = []
+    for(let key in coordinates9) {
+        coordinates10.push(coordinates9[key])
+    }
+    console.log(coordinates10)
+
+
+    map.removeLayer("yellow1")
+
+
     new mapboxgl.Popup() //Create a popup when clicking the "parks-shapes" layer
     .setLngLat(e.lngLat) //Popup appears at the longitude and latitude of the click
         .setHTML("<b>Address: </b>" + e.features[0].properties.Address + "<br>" +
@@ -415,16 +358,88 @@ map.on('click', 'houses', (e) => {
             "<b>Number of Units built:</b> " + e.features[0].properties.Units_Built_Num + "<br>" + 
             "<b>Construction start date:</b> " + e.features[0].properties.Construction_Start_Date + "<br>" + 
             "<b>Construction completion date:</b> " + e.features[0].properties.Actual_Construction_Completion + "<br>" + "<br>" +  
+            '<input class="iso-checkbox" type="checkbox" value="" id="iso-id" unchecked> <b>Walking Distance Isochrones</b>' + "<br>" + "<br>" + 
             '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button class="btn btn-primary btn-sm" id="zoom-in">Zoom to Feature') //Access "parks-shapes" data to add name and location data to popup
         .addTo(map) //Add the pop up to the map
         document.getElementById('zoom-in').addEventListener('click', () => {
             map.flyTo({
                 center: coordinates1,
-                zoom: 13,
+                zoom: 12,
                 essential: true
             });
         });
+
+
+        document.getElementById('iso-id').addEventListener('change', (e) => {
+    
+            fetchIsochroneData(coordinates10)
+
+            function fetchIsochroneData(coordinates10) {
+            // Define the URL for the Isochrone API request
+            const apiUrl = 'https://api.mapbox.com/isochrone/v1/mapbox/walking/';
+
+            // Define the parameters for the Isochrone API request
+            const params = {
+                contours_minutes: [10, 20, 30], // Contour intervals in minutes
+                polygons: true, // Include polygons in the response
+                access_token: mapboxgl.accessToken // Access token for Mapbox API
+            };
+
+            // Construct the URL with parameters
+            const url = `${apiUrl}${coordinates10[0]},${coordinates10[1]}.json?${new URLSearchParams(params)}`;
+            console.log(url)
+
+            // Make the request to the Isochrone API
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+            // Add Isochrone data to the map as a GeoJSON source and layer
+            map.addSource(`isochrone-${coordinates10.join('-')}`, {
+                type: 'geojson',
+                data: data
+            });
+
+            // Add Isochrone layer to the map
+            map.addLayer({
+                id: "yellow1",
+                type: 'fill',
+                source: `isochrone-${coordinates10.join('-')}`,
+                paint: {
+                    'fill-color': {
+                        property: 'contour',
+                        stops: [
+                        [10, '#fca90e'], // Color for 5-minute contour
+                        [20, '#ff6f61'], // Color for 10-minute contour
+                        [30, '#a34d91'] // Color for 15-minute contour
+                    ]
+                    },
+                    'fill-opacity': 0.3 // Adjust opacity as needed
+                },
+        
+        
+            });
+            map.moveLayer("yellow1", "houses")
+            
+            
+            })
+            .catch(error => {
+                console.error('Error fetching Isochrone data:', error);
+            });
+            }
+
+            map.setLayoutProperty(
+                "yellow1",
+                "visibility",
+                e.target.checked ? "visible" : "none",
+                e.target.checked ? 'none' : 'visible'
+            );
+
+        }); 
+
 });
+
+
+
 
 map.on('click', 'hospitals1', (e) => {
     new mapboxgl.Popup() //Create a popup when clicking the "parks-shapes" layer
