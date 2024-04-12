@@ -322,6 +322,67 @@ map.on('load', () => {
     });
 
 
+    const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        zoom: 13,
+        placeholder: 'Enter an address or place name',
+        countries: 'ca',
+        bbox: [-79.6393, 43.5806, -79.115, 43.8555] // Toronto bounding box
+      });
+    
+      //Add geocoder to top right corner of the map container
+      map.addControl(geocoder, "top-right")
+    
+      let marker = new mapboxgl.Marker({ color: "#f50049" }); // Declare marker outside event listener
+    
+      geocoder.on('result', async (event) => {
+        const point = event.result.center;
+    
+        // Remove previous marker
+        if (marker) {
+          marker.remove();
+        }
+    
+        marker = new mapboxgl.Marker({ color: "#f50049" }).setLngLat(point).addTo(map); // Assign new marker
+    
+        const tileset = "spblisarenko12.5wsb1te2"; //Add mapbox tileset to variable
+        const radius = 500; //distance within which points from the tileset will be added
+        const limit = 50;
+
+        //Fetch api and apply tileset variable
+        const query = await fetch(
+          `https://api.mapbox.com/v4/${tileset}/tilequery/${point[0]},${point[1]}.json?radius=${radius}&limit=${limit}&access_token=${mapboxgl.accessToken}`,
+          { method: 'GET' }
+        );
+
+        const json = await query.json(); //convert query variable to json, and store in json variable
+        console.log(json);
+    
+        // Remove previous data source
+        if (map.getSource(`tilequery-${tileset}`)) {
+          map.removeLayer('tilequery-points');
+          map.removeSource(`tilequery-${tileset}`);
+        }
+    
+        // Add the new source
+        map.addSource(`tilequery-${tileset}`, {
+          type: 'geojson',
+          data: json
+        });
+    
+        // Add a layer to display the features
+        map.addLayer({
+          id: 'tilequery-points',
+          type: 'circle',
+          source: `tilequery-${tileset}`,
+          paint: {
+            'circle-radius': 7,
+            'circle-color': "#f50049",
+            'circle-opacity': 0.35
+          }
+        });
+      });
 
 });
 
@@ -333,7 +394,6 @@ map.on('mouseenter', ['houses', "hospitals1", "subwaystops", "schools1", "school
 map.on('mouseleave', ['houses', "hospitals1", "subwaystops", "schools1", "schools2", "schools3", "schools4", "schools5", "schools6", "schools7"], (e) => {
     map.getCanvas().style.cursor = ''; //When the pointer icon is no longer hovering over any of the data layers it reverses back to mouse cursor icon
 });
-
 
 
 map.on('click', 'houses', (e) => {

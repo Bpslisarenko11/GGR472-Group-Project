@@ -22,6 +22,7 @@ Features of this map include:
     2. checkboxes for each layer that can be toggled to display or hide the layer
     3. A button to called "reset zoom" to change the map extent to what it was on the original map load
     4. A dropdown which contains checkboxes for each of the seven different school type layers
+    5. A geocoder which allows for any Toronto address to be searched for, and will display any of the Hospitals, Schools or Subways points within a 500m radius of the address.
 
 Features Specific to the Affordable Housing layer
     1. Within the Affordable Housing layer pop-up there is a "Zoom to Feature" button that will zoom the map in towards that point when clicked
