@@ -423,7 +423,7 @@ map.on('click', 'houses', (e) => {
                         [30, '#a34d91'] // Color for 15-minute contour
                     ]
                     },
-                    'fill-opacity': 0.3 // Adjust opacity as needed
+                    'fill-opacity': 0.35 // Adjust opacity as needed
                 },
         
         
