@@ -30,7 +30,7 @@ map.on('load', () => {
     //Add data source for the Affordable housing layer
     map.addSource("housing", {
         type: "geojson",
-        data: 'https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Affordable-housing.geojson', //Affordable housing GeoJSON link in GitHub
+        data: 'https://bpslisarenko11.github.io/GGR472-Group-Project/Data/Affordable-housing.geojson', //Affordable housing GeoJSON link in GitHub
         
     });
     //Add the Affordable housing data as a new layer
