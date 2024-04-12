@@ -64,7 +64,7 @@ map.on('load', () => {
     //Add data source for the hospitals layer
     map.addSource("hospitals", {
         type: "geojson",
-        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Health-Services.geojson", //Hospitals GeoJSON link in GitHub
+        data: "https://bpslisarenko11.github.io/GGR472-Group-Project/Data/Health-Services.geojson", //Hospitals GeoJSON link in GitHub
     
     });
 
@@ -96,7 +96,7 @@ map.on('load', () => {
     //Add the data source for the Schools layer
     map.addSource("schools_all", {
         type: "geojson",
-        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/School-locations.geojson", //Schools GeoJSON link in GitHub
+        data: "https://bpslisarenko11.github.io/GGR472-Group-Project/Data/School-locations.geojson", //Schools GeoJSON link in GitHub
     
     });
 
@@ -292,7 +292,7 @@ map.on('load', () => {
     //Add the data source for the Subways layer
     map.addSource("subways1", {
         type: "geojson",
-        data: "https://raw.githubusercontent.com/Bpslisarenko11/GGR472-Group-Project/main/Subways.geojson", //Subways GeoJSON link in GitHub
+        data: "https://bpslisarenko11.github.io/GGR472-Group-Project/Data/Subways.geojson", //Subways GeoJSON link in GitHub
     
     });
 
